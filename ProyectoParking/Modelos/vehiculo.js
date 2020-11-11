@@ -16,3 +16,4 @@ class Caravana extends Vehiculo{
 
 }
 
+export {Turismo, Motocicleta, Caravana};
