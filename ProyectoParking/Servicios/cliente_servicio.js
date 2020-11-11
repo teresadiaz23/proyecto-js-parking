@@ -6,6 +6,7 @@ import { Ticket } from "../Modelos/ticket.js";
 import { ticketRepo } from '../Repositorios/ticket_repositorio.js';
 import { parkingServicio } from "./parking_servicio.js";
 import { ticketServicio } from "./ticket_servicio.js";
+import moment from 'moment';
 
 class ClienteServicio{
     constructor(){
@@ -13,21 +14,11 @@ class ClienteServicio{
     }
     depositarVehiculo(matricula, tipo, plazasT, plazasM, plazasC){
     
-        // let plazasT = parkingServicio.plazasLibresTurismo();
-        // let plazasM = parkingServicio.plazasLibresMoto();
-        // let plazasC = parkingServicio.plazasLibresCaravana();
         let plazaAsignada = new Plaza();
         let depositado = false;
        
-        // console.log(`Hay ${plazasT.length} plazas de turismos, ${plazasM.length} plazas de motocicletas y ${plazasC.length}
-        //  plazas de caravanas libres`);
-        // parkingServicio.imprimirPlazasLibres(plazasT, plazasM, plazasC);
-        // let matricula = readline.question('Introduce la matrícula de su vehículo: ');
-        // let tipo = readline.question('Introduce el tipo de vehículo: ');
-        let vehiculo;
         if(tipo.toLowerCase() == "turismo"){
             if(plazasT.length > 0){
-                //vehiculo = new Turismo(0.12);
                 plazaAsignada=plazasT[0];
                 plazasT[0].ocupada = true;
                 depositado = true;
@@ -39,7 +30,6 @@ class ClienteServicio{
 
         }else if(tipo.toLowerCase() == "motocicleta"){
             if(plazasM.length > 0){
-                //vehiculo = new Motocicleta(0.08);
                 plazaAsignada = plazasM[0];
                 plazasM[0] = true;
                 depositado = true;
@@ -51,7 +41,6 @@ class ClienteServicio{
 
         }else if(tipo.toLowerCase() == "caravana"){
             if(plazasC.length > 0){
-                //vehiculo = new Caravana(0.45);
                 plazaAsignada = plazasC[0];
                 plazasC[0].ocupada = true;
                 depositado = true;
@@ -68,15 +57,34 @@ class ClienteServicio{
         let pin = Math.floor(Math.random() * (999999 - 111111) + 111111);        
         
         let ticket = new Ticket(matricula, new Date(), plazaAsignada.id, pin);
-        //ticketServicio.imprimirTicket(ticket);
         ticketRepo.listaTicket.push(ticket);
+        //ticketServicio.imprimirTicket(ticket);
 
         return depositado;
     
     }
     
-    retirarVehiculo(){
-        
+    retirarVehiculo(matricula, id, pin){
+        let ticket  = ticketServicio.repo.listaTicket.find(ticket => ticket.pin === pin);
+        let plaza = parkingServicio.repo.parking.plazas.find(plaza => plaza.id === id);
+        let hoy = moment();
+        let tiempo = hoy.diff(ticket.fechaDeposito, 'minutes');
+        //console.log(tiempo);
+        let total = tiempo * plaza.vehiculo.tarifa; 
+        //console.log(total.toFixed(2));
+        ticket.fechaSalida = hoy;
+        ticket.coste = total;
+
+        //console.log(ticket);
+        parkingServicio.repo.parking.totalDinero += total;
+        //console.log(parkingServicio.repo.parking);
+        plaza.ocupada = false;
+        //console.log(plaza);
+
+        return total.toFixed(2);
+       
+       
+
     }
 
 }
@@ -84,6 +92,7 @@ class ClienteServicio{
 let clienteServicio = new ClienteServicio();
 
 //clienteServicio.depositarVehiculo();
+//clienteServicio.retirarVehiculo("1111BBB",1,111111);
 
 export { clienteServicio };
 
