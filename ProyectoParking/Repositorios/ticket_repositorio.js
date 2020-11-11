@@ -1,4 +1,5 @@
 import {Ticket} from "../Modelos/ticket.js";
+import moment from 'moment';
 
 class TicketRepositorio{
     constructor(listaTicket=[]){
@@ -7,7 +8,7 @@ class TicketRepositorio{
 }
 
 
-let listaTickets = [new Ticket("1111BBB", new Date("2020/11/11 18:39:15"), 1, 111111)];
+let listaTickets = [new Ticket("1111BBB", moment("2020-11-11 21:00:00"), 1, 111111)];
 let ticketRepo = new TicketRepositorio(listaTickets);
 
 export { ticketRepo };

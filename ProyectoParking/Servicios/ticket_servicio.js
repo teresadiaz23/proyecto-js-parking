@@ -1,4 +1,5 @@
 import { ticketRepo} from "../Repositorios/ticket_repositorio.js";
+import moment from 'moment';
 
 class TicketServicio{
     constructor(repo){
@@ -10,8 +11,8 @@ class TicketServicio{
         console.log(`*              Ticket               *`);
         console.log(`*                                   *`);
         console.log(`*    Matrícula: ${ticket.matricula}             *`);
-        console.log(`*    Fecha depósito: ${ticket.fechaDeposito.getDate()}/${ticket.fechaDeposito.getMonth()+1}/${ticket.fechaDeposito.getFullYear()}     *`);
-        console.log(`*    Hora: ${ticket.fechaDeposito.getHours()}:${ticket.fechaDeposito.getMinutes()}:${ticket.fechaDeposito.getSeconds()}                 *`);
+        console.log(`*    Fecha depósito: ${ticket.fechaDeposito.date()}/${ticket.fechaDeposito.month()+1}/${ticket.fechaDeposito.year()}     *`);
+        console.log(`*    Hora: ${ticket.fechaDeposito.hours()}:${ticket.fechaDeposito.minutes()}:${ticket.fechaDeposito.seconds()}                 *`);
         console.log(`*    Id plaza: ${ticket.idPlaza}                    *`);
         console.log(`*    Pin: ${ticket.pin}                    *`);
         console.log(`*                                   *`);
