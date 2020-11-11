@@ -54,7 +54,8 @@ class ClienteServicio{
         else{
             console.log("Ese vehículo no es válido");
         }
-        let pin = Math.floor(Math.random() * (999999 - 111111) + 111111);        
+        let pin = Math.floor(Math.random() * (999999 - 111111) + 111111);
+        console.log(`Pin: ${pin}`);       
         
         let ticket = new Ticket(matricula, new Date(), plazaAsignada.id, pin);
         ticketRepo.listaTicket.push(ticket);
