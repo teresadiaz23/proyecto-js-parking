@@ -1,15 +1,17 @@
 {
   "name": "proyectoparking",
   "version": "1.0.0",
-  "description": "",
+  "description": "Proyecto de un parking robotizado",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Teresa",
+  "author": "Teresa Diaz",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
+    "moment": "^2.29.1",
     "readline-sync": "^1.4.10"
   }
 }

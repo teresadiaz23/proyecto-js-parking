@@ -1,7 +1,7 @@
 // import { parkingRepo } from "../Repositorios/parking_repositorio.js";
 // import { Plaza } from "../Modelos/plaza.js";
 // import { Motocicleta, Turismo } from "../Modelos/vehiculo.js";
-import pkg from 'readline-sync';
+import * as readline from 'readline-sync';
 import { Ticket } from "../Modelos/ticket.js";
 import { ticketRepo } from '../Repositorios/ticket_repositorio.js';
 
@@ -32,8 +32,8 @@ function depositarVehiculo(){
     // }
     // console.log(`Hay ${plazasT.length} plazas de turismos, ${plazasM.length} plazas de motocicletas y ${plazasC.length}
     //  plazas de caravanas libres`);
-    let matricula = pkg.question('Introduce la matrícula de su vehículo: ');
-    let tipo = pkg.question('Introduce el tipo de vehículo: ');
+    let matricula = readline.question('Introduce la matrícula de su vehículo: ');
+    let tipo = readline.question('Introduce el tipo de vehículo: ');
     let pin = Math.floor(Math.random() * (999999 - 111111) + 111111);
     console.log(matricula);
     console.log(tipo);
