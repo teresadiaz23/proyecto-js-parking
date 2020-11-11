@@ -10,7 +10,7 @@ class TicketServicio{
         console.log(`*              Ticket               *`);
         console.log(`*                                   *`);
         console.log(`*    Matrícula: ${ticket.matricula}             *`);
-        console.log(`*    Fecha depósito: ${ticket.fechaDeposito.getDate()}/${ticket.fechaDeposito.getMonth()}/${ticket.fechaDeposito.getFullYear()}     *`);
+        console.log(`*    Fecha depósito: ${ticket.fechaDeposito.getDate()}/${ticket.fechaDeposito.getMonth()+1}/${ticket.fechaDeposito.getFullYear()}     *`);
         console.log(`*    Hora: ${ticket.fechaDeposito.getHours()}:${ticket.fechaDeposito.getMinutes()}:${ticket.fechaDeposito.getSeconds()}                 *`);
         console.log(`*    Id plaza: ${ticket.idPlaza}                    *`);
         console.log(`*    Pin: ${ticket.pin}                    *`);

@@ -11,24 +11,29 @@ class ClienteServicio{
     constructor(){
 
     }
-    depositarVehiculo(){
+    depositarVehiculo(matricula, tipo, plazasT, plazasM, plazasC){
     
-        let plazasT = parkingServicio.plazasLibresTurismo();
-        let plazasM = parkingServicio.plazasLibresMoto();
-        let plazasC = parkingServicio.plazasLibresCaravana();
+        // let plazasT = parkingServicio.plazasLibresTurismo();
+        // let plazasM = parkingServicio.plazasLibresMoto();
+        // let plazasC = parkingServicio.plazasLibresCaravana();
         let plazaAsignada = new Plaza();
+        let depositado = false;
        
         // console.log(`Hay ${plazasT.length} plazas de turismos, ${plazasM.length} plazas de motocicletas y ${plazasC.length}
         //  plazas de caravanas libres`);
-        parkingServicio.imprimirPlazasLibres(plazasT, plazasM, plazasC);
-        let matricula = readline.question('Introduce la matrícula de su vehículo: ');
-        let tipo = readline.question('Introduce el tipo de vehículo: ');
+        // parkingServicio.imprimirPlazasLibres(plazasT, plazasM, plazasC);
+        // let matricula = readline.question('Introduce la matrícula de su vehículo: ');
+        // let tipo = readline.question('Introduce el tipo de vehículo: ');
         let vehiculo;
         if(tipo.toLowerCase() == "turismo"){
             if(plazasT.length > 0){
                 //vehiculo = new Turismo(0.12);
                 plazaAsignada=plazasT[0];
                 plazasT[0].ocupada = true;
+                depositado = true;
+            }
+            else{
+                depositado = false;
             }
             
 
@@ -37,6 +42,10 @@ class ClienteServicio{
                 //vehiculo = new Motocicleta(0.08);
                 plazaAsignada = plazasM[0];
                 plazasM[0] = true;
+                depositado = true;
+            }
+            else{
+                depositado = false;
             }
             
 
@@ -45,6 +54,10 @@ class ClienteServicio{
                 //vehiculo = new Caravana(0.45);
                 plazaAsignada = plazasC[0];
                 plazasC[0].ocupada = true;
+                depositado = true;
+            }
+            else{
+                depositado = false;
             }
             
 
@@ -55,8 +68,10 @@ class ClienteServicio{
         let pin = Math.floor(Math.random() * (999999 - 111111) + 111111);        
         
         let ticket = new Ticket(matricula, new Date(), plazaAsignada.id, pin);
-        ticketServicio.imprimirTicket(ticket);
+        //ticketServicio.imprimirTicket(ticket);
         ticketRepo.listaTicket.push(ticket);
+
+        return depositado;
     
     }
     
@@ -68,5 +83,7 @@ class ClienteServicio{
 
 let clienteServicio = new ClienteServicio();
 
-clienteServicio.depositarVehiculo();
+//clienteServicio.depositarVehiculo();
+
+export { clienteServicio };
 
