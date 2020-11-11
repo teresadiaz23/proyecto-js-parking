@@ -5,9 +5,7 @@ class Ticket{
         this.idPlaza = idPlaza;
         this.pin = pin;
     }
-    // toString(){
-    //     return this;
-    // }
+    
 }
 
 export { Ticket };

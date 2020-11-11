@@ -1,12 +1,13 @@
 class ClienteAbonado{
 
-    constructor(dni, nombre, apellidos, numTarjeta, abono, email ){
+    constructor(dni, nombre, apellidos, numTarjeta, email, abono=null ){
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.numTarjeta = numTarjeta;
-        this.abono = abono;
         this.email = email;
+        this.abono = abono;
+        
 
     }
 }

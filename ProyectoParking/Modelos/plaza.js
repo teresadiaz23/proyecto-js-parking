@@ -1,9 +1,9 @@
 class Plaza{
-    constructor(id, vehiculo,){
+    constructor(id, vehiculo, ocupada=false, cliente=null){
         this.id = id;
         this.vehiculo = vehiculo;
-        this.ocupada = false;
-        this.cliente = null;
+        this.ocupada = ocupada;
+        this.cliente = cliente;
     }
 }
 
