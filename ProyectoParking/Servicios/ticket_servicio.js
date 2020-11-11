@@ -22,6 +22,6 @@ class TicketServicio{
 }
 
 let ticketServicio = new TicketServicio(ticketRepo);
-// ticketServicio.imprimirTicket(ticketRepo.listaTicket[0]);
+//ticketServicio.imprimirTicket(ticketRepo.listaTicket[0]);
 
 export { ticketServicio };

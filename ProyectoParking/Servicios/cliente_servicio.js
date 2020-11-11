@@ -58,6 +58,7 @@ class ClienteServicio{
         
         let ticket = new Ticket(matricula, new Date(), plazaAsignada.id, pin);
         ticketRepo.listaTicket.push(ticket);
+        //ticketServicio.imprimirTicket(ticket);
 
         return depositado;
     
@@ -70,17 +71,17 @@ class ClienteServicio{
         let tiempo = hoy.diff(ticket.fechaDeposito, 'minutes');
         //console.log(tiempo);
         let total = tiempo * plaza.vehiculo.tarifa; 
-        console.log(total.toFixed(2));
+        //console.log(total.toFixed(2));
         ticket.fechaSalida = hoy;
         ticket.coste = total;
 
-        console.log(ticket);
+        //console.log(ticket);
         parkingServicio.repo.parking.totalDinero += total;
         //console.log(parkingServicio.repo.parking);
         plaza.ocupada = false;
-        console.log(plaza);
+        //console.log(plaza);
 
-        return total;
+        return total.toFixed(2);
        
        
 
@@ -91,7 +92,7 @@ class ClienteServicio{
 let clienteServicio = new ClienteServicio();
 
 //clienteServicio.depositarVehiculo();
-clienteServicio.retirarVehiculo("1111BBB",1,111111);
+//clienteServicio.retirarVehiculo("1111BBB",1,111111);
 
 export { clienteServicio };
 
