@@ -7,10 +7,10 @@ class PlazaRepositorio{
     }
 }
 
-
-let listaPlazas = [];
+const NUMPLAZA = 45;
+let listaPlazas = new Array(45);
 listaPlazas.length = 45;
-for (let i = 1; i <= listaPlazas.length; i++) {
+for (let i = 1; i <= NUMPLAZA; i++) {
     if(i < 16){
         listaPlazas[i]= new Plaza(i, new Turismo(0.12));
     }
