@@ -1,10 +1,11 @@
 class Plaza{
-    constructor(id, vehiculo, ocupada=false, cliente=null){
+    constructor(id, tipoVehiculo, tarifa, ocupada=false, cliente=null){
         this.id = id;
-        this.vehiculo = vehiculo;
+        this.tipoVehiculo = tipoVehiculo;
+        this.tarifa = tarifa;
         this.ocupada = ocupada;
         this.cliente = cliente;
     }
 }
 
-export {Plaza};
+export { Plaza };

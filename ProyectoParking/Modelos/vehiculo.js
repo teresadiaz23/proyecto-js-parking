@@ -1,6 +1,7 @@
 class Vehiculo{
-    constructor(tarifa){
+    constructor(tarifa, matricula=null){
         this.tarifa = tarifa;
+        this.matricula = matricula;
     }
 }
 

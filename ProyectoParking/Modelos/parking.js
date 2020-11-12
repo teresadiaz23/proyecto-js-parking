@@ -1,5 +1,5 @@
 class Parking{
-    constructor(plazas, totalDinero=0){
+    constructor(plazas, totalDinero=[]){
         this.plazas = plazas;
         this.totalDinero = totalDinero;
     }
