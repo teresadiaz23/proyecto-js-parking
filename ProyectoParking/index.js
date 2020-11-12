@@ -13,6 +13,7 @@ let op = 0;
 let op2 = 0;
 
 console.log("Bienvenido al parking");
+console.log(plazasT.length, plazasM.length, plazasC.length);
 
 do {  
 
@@ -34,14 +35,18 @@ Pulse 0 para salir
                         parkingServicio.imprimirPlazasLibres(parkingServicio.plazasLibresTurismo(),
                          parkingServicio.plazasLibresMoto(), parkingServicio.plazasLibresCaravana());
                         matricula = readline.question('Introduce la matrícula de su vehículo: ');
-                        tipo = readline.question('Introduce el tipo de vehículo: ');
+                        tipo = readline.question('Introduce el tipo de vehículo (turismo, motocicleta o caravana): ');
                         if (clienteServicio.depositarVehiculo(matricula, tipo, parkingServicio.plazasLibresTurismo(),
                         parkingServicio.plazasLibresMoto(), parkingServicio.plazasLibresCaravana())) {
                             console.log("");
+                            
                             //ticketServicio.imprimirTicket(ticketServicio.repo.listaTicket[ticketServicio.repo.listaTicket.length-1]);
                             //console.log(ticketServicio.repo.listaTicket);
                             console.log("Su vehículo ha sido depositado correctamente");
 
+                        }
+                        else{
+                            console.log("Los datos introducidos no son correctos")
                         }
 
                         break;
@@ -49,9 +54,16 @@ Pulse 0 para salir
                         matricula = readline.question('Introduce la matrícula de su vehículo: ');
                         let id = parseInt(readline.question('Introduce la identificador de la plaza: '));
                         let pin = parseInt(readline.question('Introduce el pin del ticket: '));
-                        console.log(`\nImporte a pagar: ${clienteServicio.retirarVehiculo(matricula, id, pin)}€`);
-                        console.log("Puede retirar su vehículo");
+                        let total = clienteServicio.retirarVehiculo(matricula, id, pin);
+                        if(total >= 0){
+                            console.log(`\nImporte a pagar: ${total}€`);
+                            console.log("Puede retirar su vehículo");
 
+                        }
+                        else{
+                            console.log("Los datos introducidos no son correctos");
+                        }
+                        
                         break;
                     case 0:
                         console.log("Saliendo al menú principal");

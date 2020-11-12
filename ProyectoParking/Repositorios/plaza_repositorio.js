@@ -44,12 +44,13 @@ for (let i = 0; i < listaPlazas.length; i++) {
 // }
 listaPlazas[4].cliente = abonadoRepositorio.listaAbonados[0];
 listaPlazas[16].cliente = abonadoRepositorio.listaAbonados[1];
-listaPlazas[20].cliente = abonadoRepositorio.listaAbonados[2];
+listaPlazas[35].cliente = abonadoRepositorio.listaAbonados[2];
 listaPlazas[7].cliente = abonadoRepositorio.listaAbonados[3];
 
 let plazaRepo = new PlazaRepositorio();
 for (const plaza of listaPlazas) {
     plazaRepo.alta(plaza);
 }
+console.log(listaPlazas);
 
 export { plazaRepo };
