@@ -51,6 +51,5 @@ let plazaRepo = new PlazaRepositorio();
 for (const plaza of listaPlazas) {
     plazaRepo.alta(plaza);
 }
-console.log(listaPlazas);
 
 export { plazaRepo };
