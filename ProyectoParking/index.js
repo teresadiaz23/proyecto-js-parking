@@ -5,6 +5,7 @@ import { ticketServicio } from "./Servicios/ticket_servicio.js";
 import moment from 'moment';
 import { abonadoServicio } from "./Servicios/abonado_servicio.js";
 import { abonoRepositorio } from "./Repositorios/abono_repositorio.js";
+import { adminServicio } from "./Servicios/administrador_servicio.js";
 
 let plazasT = parkingServicio.plazasLibresTurismo();
 let plazasM = parkingServicio.plazasLibresMoto();
@@ -16,6 +17,9 @@ let op2 = 0;
 let dni = "";
 let pin = 0;
 let id = 0;
+let fecha = "";
+let fecha1 = undefined;
+let fecha2 = undefined;
 
 console.log("Bienvenido al parking");
 
@@ -143,9 +147,50 @@ Pulse 0 para salir
             break;
         case 3:
             let password = readline.question("Introduce la contraseña: ");
-            do {
-                
-            } while (op2 != 0);
+            if (adminServicio.comprobarPassword(password)) {
+                do {
+                    op2 = parseInt(readline.question(`\nPulse 1 para ver el estado del parking
+Pulse 2 para ver la facturación entre dos fechas
+Pulse 3 para consultar los abonados
+Pulse 4 para la gestión de los abonos
+Pulse 5 para ver la caducidad de los abonos
+Pulse 0 para salir
+`));
+                    switch (op2) {
+                        case 1:
+                            adminServicio.estadoParking();
+
+                            break;
+                        case 2:
+                            fecha = readline.question("Introduce la primera fecha y hora con el formato 'aaaa-mm-dd hh:mm': ");
+                            fecha1 = moment(fecha);
+                            fecha = readline.question("Introduce la segunda fecha y hora con el formato 'aaaa-mm-dd hh:mm': ");
+                            fecha2 = moment(fecha);
+                            console.log(`\nFacturación entre ${fecha1.date()}/${fecha1.month()}/${fecha1.year()} y el ${fecha2.date()}/${fecha2.month()}/${fecha2.year()}: ${adminServicio.facturacion(fecha1,fecha2)} €`);
+
+
+                            break;
+                        case 3:
+
+                            break;
+                        case 4:
+
+                            break;
+                        case 5:
+
+                            break;
+                        default:
+                            break;
+                    }
+
+                } while (op2 != 0);
+
+            }
+            else{
+                console.log("\nContraseña incorrecta");
+            }
+            
+            
 
             break;
         case 0:
