@@ -180,10 +180,13 @@ Pulse 0 para salir
                             break;
                         case 5:
                             let mes = readline.question("Introduce un mes en número: ");
+                            console.log("\nAbonos que caducan en ese mes:")
                             adminServicio.caducidadAbonosMes(mes);
 
                             break;
                         case 6:
+                            console.log("\nAbonos que caducan en los próximos 10 días:")
+                            adminServicio.caducidadAbonos10Dias();
 
                             break;
                         default:

@@ -93,7 +93,7 @@ class AdminServicio{
                 let i = 1;
                 console.log(`\nAbono ${i++}\nTipo: ${abono.tipo}\nId Plaza: ${abono.clienteAbonado.idPlaza}
 Fecha Activación: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}
-Fecha Caducidad: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}`);
+Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month()+1}/${abono.fechaCancelacion.year()}`);
             }
             
         }
@@ -104,6 +104,26 @@ Fecha Caducidad: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()
     }
 
     caducidadAbonos10Dias(){
+        let abonos = [];
+        for (const abono of abonoRepositorio.listaAbonos) {
+            
+            if(abono.fechaCancelacion.isBetween(moment(), moment().add(10, 'days'))){
+                abonos.push(abono);
+            }
+        }
+        if(abonos.length > 0){
+            for (const abono of abonos) {
+                let i = 1;
+                console.log(`\nAbono ${i++}\nTipo: ${abono.tipo}\nId Plaza: ${abono.clienteAbonado.idPlaza}
+Fecha Activación: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}
+Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month()+1}/${abono.fechaCancelacion.year()}`);
+            }
+            
+        }
+        else{
+            //console.log(abonoRepositorio.listaAbonos);
+            console.log("No hay abonos que caduquen en los próximos 10 días");
+        }
 
     }
 
@@ -118,6 +138,7 @@ let adminServicio = new AdminServicio();
 // console.log(`Facturación entre ${fecha1.date()}/${fecha1.month()}/${fecha1.year()} y el ${fecha2.date()}/${fecha2.month()}/${fecha2.year()}: ${adminServicio.facturacion(fecha1,fecha2)} €`);
 //adminServicio.consultaAbonados();
 //adminServicio.caducidadAbonosMes(12);
+//adminServicio.caducidadAbonos10Dias();
 export { adminServicio };
 
 
