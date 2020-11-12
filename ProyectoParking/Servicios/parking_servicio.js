@@ -10,8 +10,8 @@ class ParkingServicio{
     plazasLibresTurismo(){
         let libres = [];
         for (let i = 0; i < this.repo.parking.plazas.length; i++) {
-            if(this.repo.parking.plazas[i].vehiculo instanceof Turismo){
-                if(this.repo.parking.plazas[i].ocupada == false){
+            if(this.repo.parking.plazas[i].tipoVehiculo == "turismo"){
+                if(this.repo.parking.plazas[i].ocupada == false && this.repo.parking.plazas[i].cliente == null){
                     libres.push(this.repo.parking.plazas[i]);
                 }
                 
@@ -24,9 +24,8 @@ class ParkingServicio{
     plazasLibresMoto(){
         let libres = [];
         for (let i = 0; i < this.repo.parking.plazas.length; i++) {
-            
-            if(this.repo.parking.plazas[i].vehiculo instanceof Motocicleta){
-                if(this.repo.parking.plazas[i].ocupada == false){
+            if(this.repo.parking.plazas[i].tipoVehiculo == "motocicleta"){
+                if(this.repo.parking.plazas[i].ocupada == false && this.repo.parking.plazas[i].cliente == null){
                     libres.push(this.repo.parking.plazas[i]);
                 }
                 
@@ -40,8 +39,8 @@ class ParkingServicio{
     plazasLibresCaravana(){
         let libres = [];
         for (let i = 0; i < this.repo.parking.plazas.length; i++) { 
-            if(this.repo.parking.plazas[i].vehiculo instanceof Caravana){
-                if(this.repo.parking.plazas[i].ocupada == false){
+            if(this.repo.parking.plazas[i].tipoVehiculo == "caravana"){
+                if(this.repo.parking.plazas[i].ocupada == false && this.repo.parking.plazas[i].cliente == null){
                     libres.push(this.repo.parking.plazas[i]);
                 }
                 

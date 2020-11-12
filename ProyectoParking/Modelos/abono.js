@@ -9,3 +9,5 @@ class Abono{
 
     }
 }
+
+export { Abono };
