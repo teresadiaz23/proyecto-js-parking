@@ -59,11 +59,13 @@ class ClienteServicio{
             let pin = Math.floor(Math.random() * (999999 - 111111) + 111111);
             console.log(`Pin: ${pin}`);       
         
-            let ticket = new Ticket(matricula, new Date(), plazaAsignada.id, pin);
+            let ticket = new Ticket(matricula, moment(), plazaAsignada.id, pin);
             ticketRepo.listaTicket.push(ticket);
+            // console.log(ticket);
+            // ticketServicio.imprimirTicket(ticketServicio.repo.listaTicket[1]);
         }
         
-        //ticketServicio.imprimirTicket(ticket);
+        
 
         return depositado;
     
@@ -100,8 +102,9 @@ class ClienteServicio{
 
 let clienteServicio = new ClienteServicio();
 
-//clienteServicio.depositarVehiculo();
-clienteServicio.retirarVehiculo("1111BBB",1,111111);
+// clienteServicio.depositarVehiculo("matricula", "turismo", parkingServicio.plazasLibresTurismo(),
+//                         parkingServicio.plazasLibresMoto(), parkingServicio.plazasLibresCaravana())
+// clienteServicio.retirarVehiculo("1111BBB",1,111111);
 
 export { clienteServicio };
 

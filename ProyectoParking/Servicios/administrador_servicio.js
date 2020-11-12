@@ -1,6 +1,7 @@
 import { parkingServicio } from "../Servicios/parking_servicio.js";
 import { ticketServicio } from "./ticket_servicio.js";
 import moment from 'moment';
+import { abonoRepositorio } from "../Repositorios/abono_repositorio.js";
 
 class AdminServicio{
 
@@ -54,6 +55,15 @@ class AdminServicio{
     }
     
     consultaAbonados(){
+        let cobro = [];
+        let total = 0;
+        for (const abono of abonoRepositorio.listaAbonos) {
+            //console.log(abono.tipo, abono.precio);
+            cobro.push(abono.precio);
+        }
+        const reducer = (acumulador, valor) => acumulador + valor;
+        total = cobro.reduce(reducer);
+        console.log(`\nHay ${abonoRepositorio.listaAbonos.length} abonos cobrados`);
     
     }
     
@@ -69,8 +79,32 @@ class AdminServicio{
     
     }
     
-    caducidadAbonos(){
-        
+    caducidadAbonosMes(mes){
+        let abonos = [];
+        for (const abono of abonoRepositorio.listaAbonos) {
+            
+            if(abono.fechaCancelacion.month()+1 == parseInt(mes)){
+                abonos.push(abono);
+            }
+        }
+
+        if(abonos.length > 0){
+            for (const abono of abonos) {
+                let i = 1;
+                console.log(`\nAbono ${i++}\nTipo: ${abono.tipo}\nId Plaza: ${abono.clienteAbonado.idPlaza}
+Fecha Activación: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}
+Fecha Caducidad: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}`);
+            }
+            
+        }
+        else{
+            //console.log(abonoRepositorio.listaAbonos);
+            console.log("No hay abonos que caduquen en el mes indicado");
+        }
+    }
+
+    caducidadAbonos10Dias(){
+
     }
 
 }
@@ -78,11 +112,12 @@ class AdminServicio{
 let adminServicio = new AdminServicio();
 
 //adminServicio.estadoParking();
-console.log(adminServicio.facturacion(moment("2020-11-11 20:00"), moment("2020-11-12 20:00")));
-let fecha1 = moment("2020-11-11 20:00");
-let fecha2 =  moment("2020-11-12 20:00");
-console.log(`Facturación entre ${fecha1.date()}/${fecha1.month()}/${fecha1.year()} y el ${fecha2.date()}/${fecha2.month()}/${fecha2.year()}: ${adminServicio.facturacion(fecha1,fecha2)} €`);
-
+// console.log(adminServicio.facturacion(moment("2020-11-11 20:00"), moment("2020-11-12 20:00")));
+// let fecha1 = moment("2020-11-11 20:00");
+// let fecha2 =  moment("2020-11-12 20:00");
+// console.log(`Facturación entre ${fecha1.date()}/${fecha1.month()}/${fecha1.year()} y el ${fecha2.date()}/${fecha2.month()}/${fecha2.year()}: ${adminServicio.facturacion(fecha1,fecha2)} €`);
+//adminServicio.consultaAbonados();
+//adminServicio.caducidadAbonosMes(12);
 export { adminServicio };
 
 

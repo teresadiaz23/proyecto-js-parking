@@ -49,7 +49,7 @@ Pulse 0 para salir
                         parkingServicio.plazasLibresMoto(), parkingServicio.plazasLibresCaravana())) {
                             console.log("");
                             
-                            //ticketServicio.imprimirTicket(ticketServicio.repo.listaTicket[ticketServicio.repo.listaTicket.length-1]);
+                            ticketServicio.imprimirTicket(ticketServicio.repo.listaTicket[ticketServicio.repo.listaTicket.length-1]);
                             //console.log(ticketServicio.repo.listaTicket);
                             console.log("Su vehículo ha sido depositado correctamente");
 
@@ -153,7 +153,8 @@ Pulse 0 para salir
 Pulse 2 para ver la facturación entre dos fechas
 Pulse 3 para consultar los abonados
 Pulse 4 para la gestión de los abonos
-Pulse 5 para ver la caducidad de los abonos
+Pulse 5 para ver los abonos que caducan en un mes específico
+Pulse 6 para ver los abonos que caducan en los próximos 10 días
 Pulse 0 para salir
 `));
                     switch (op2) {
@@ -171,12 +172,18 @@ Pulse 0 para salir
 
                             break;
                         case 3:
+                            adminServicio.consultaAbonados();
 
                             break;
                         case 4:
 
                             break;
                         case 5:
+                            let mes = readline.question("Introduce un mes en número: ");
+                            adminServicio.caducidadAbonosMes(mes);
+
+                            break;
+                        case 6:
 
                             break;
                         default:
