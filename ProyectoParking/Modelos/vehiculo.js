@@ -1,19 +1,35 @@
 class Vehiculo{
-    constructor(tarifa, matricula=null){
-        this.tarifa = tarifa;
+    constructor(matricula){
+        
         this.matricula = matricula;
     }
 }
 
 class Turismo extends Vehiculo{
+    constructor(matricula){
+        super(matricula);
+        this.tarifa = 0.12;
+        
+    }
+
 
 }
 
 class Motocicleta extends Vehiculo{
+    constructor(matricula){
+        super(matricula);
+        this.tarifa = 0.08;
+        
+    }
 
 }
 
 class Caravana extends Vehiculo{
+    constructor(matricula){
+        super(matricula);
+        this.tarifa = 0.45;
+        
+    }
 
 }
 

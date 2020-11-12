@@ -14,6 +14,7 @@ let matricula = "";
 let tipo = "";
 let op = 0;
 let op2 = 0;
+let op3 = 0;
 let dni = "";
 let pin = 0;
 let id = 0;
@@ -176,6 +177,27 @@ Pulse 0 para salir
 
                             break;
                         case 4:
+                            do {
+                                switch (op3) {
+                                    case 1:
+
+                                        break;
+                                    case 2:
+
+                                        break;
+                                    case 3:
+
+                                        break;
+                                    case 0:
+
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+
+                            } while (op3 != 0);
+
 
                             break;
                         case 5:

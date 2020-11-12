@@ -6,6 +6,10 @@ class AbonoRepositorio{
     constructor(listaAbonos){
         this.listaAbonos = listaAbonos;
     }
+
+    save(abono){
+        this.listaAbonos.push(abono);
+    }
 }
 
 let pin = Math.floor(Math.random() * (999999 - 111111) + 111111);

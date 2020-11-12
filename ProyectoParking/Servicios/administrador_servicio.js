@@ -2,6 +2,11 @@ import { parkingServicio } from "../Servicios/parking_servicio.js";
 import { ticketServicio } from "./ticket_servicio.js";
 import moment from 'moment';
 import { abonoRepositorio } from "../Repositorios/abono_repositorio.js";
+import { ClienteAbonado } from "../Modelos/cliente_abonado.js";
+import { Abono } from "../Modelos/abono.js";
+import { Caravana, Motocicleta, Turismo } from "../Modelos/vehiculo.js";
+import { abonadoServicio } from "./abonado_servicio.js";
+import { abonadoRepositorio } from "../Repositorios/cliente_abonado_repositorio.js";
 
 class AdminServicio{
 
@@ -67,7 +72,66 @@ class AdminServicio{
     
     }
     
-    altaAbonos(){
+    altaAbonos(dni, nombre, apellidos, numTarjeta, email, matricula, tipoVehiculo, tipoAbono){
+        let vehiculo;
+        let plaza;
+        let abono;
+        let id;
+        let confirmado = true;
+        
+        if(tipoVehiculo == "turismo"){
+            vehiculo = new Turismo(matricula);
+            plaza = parkingServicio.plazasLibresTurismo()[0];
+        }
+        else if(tipoVehiculo == "motocicleta"){
+            vehiculo = new Motocicleta(matricula);
+            plaza = parkingServicio.plazasLibresMoto()[0];
+
+        }
+        else if(tipoVehiculo == "caravana"){
+            vehiculo = new Caravana(matricula);
+            plaza = parkingServicio.plazasLibresCaravana()[0];
+
+        }
+        else{
+            confirmado = false;
+            
+        }
+        
+        if(plaza!== undefined){
+            id = plaza.id;
+        }
+        
+        let cliente = new ClienteAbonado(dni, nombre, apellidos, numTarjeta, email, vehiculo, tipoAbono, id);
+        let pin = Math.floor(Math.random() * (999999 - 111111) + 111111);
+        if(tipoAbono == "mensual"){
+            abono = new Abono(pin, tipoAbono, moment(), moment().add(1, 'months'),cliente, 25);
+
+        }
+        else if(tipoAbono == "trimestral"){
+            abono = new Abono(pin, tipoAbono, moment(), moment().add(3, 'months'),cliente, 70);
+            
+        }
+        else if(tipoAbono == "semestral"){
+            abono = new Abono(pin, tipoAbono, moment(), moment().add(6, 'months'),cliente, 130);
+            
+        }
+        else if(tipoAbono == "anual"){
+            abono = new Abono(pin, tipoAbono, moment(), moment().add(1, 'years'),cliente, 200);
+            
+        }
+        else{
+            confirmado = false;
+        }
+
+        if(confirmado){
+            abonadoRepositorio.save(cliente);
+            abonoRepositorio.save(abono);
+        }
+
+
+        return confirmado;
+
     
     }
     
@@ -139,6 +203,9 @@ let adminServicio = new AdminServicio();
 //adminServicio.consultaAbonados();
 //adminServicio.caducidadAbonosMes(12);
 //adminServicio.caducidadAbonos10Dias();
+console.log(adminServicio.altaAbonos("111111F", "Teresa", "Diaz", "1124141", "teresa@email.com", "2345HHH","turismo", "mensual"));
+//console.log(abonadoRepositorio.listaAbonados);
+
 export { adminServicio };
 
 

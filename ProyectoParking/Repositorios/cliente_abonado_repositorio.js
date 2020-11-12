@@ -8,7 +8,7 @@ class ClienteAbonadoRepositorio{
         this.listaAbonados = listaAbonados;
     }
 
-    alta(cliente){
+    save(cliente){
         this.listaAbonados.push(cliente);
     }
     
@@ -17,16 +17,16 @@ class ClienteAbonadoRepositorio{
 
 
 let listaAbonados = [
-    new ClienteAbonado("12345678A", "Pepe", "Pérez", "123123123", "pepe@email.com", new Turismo(0.12, "5678DDD"), "mensual", 5),
-    new ClienteAbonado("12345678B", "María", "García", "456456456", "maria@email.com", new Motocicleta(0.08, "9387GGG"), "trimestral", 17),
-    new ClienteAbonado("12345678C", "Ana", "Rodríguez", "678678678", "ana@email.com", new Caravana(0.45, "5278JJJ"), "semestral", 36),
-    new ClienteAbonado("12345678D", "Antonio", "Fernández", "654654654", "antonio@email.com", new Turismo(0.12, "7654FFF"), "anual", 8)
+    new ClienteAbonado("12345678A", "Pepe", "Pérez", "123123123", "pepe@email.com", new Turismo("5678DDD"), "mensual", 5),
+    new ClienteAbonado("12345678B", "María", "García", "456456456", "maria@email.com", new Motocicleta("9387GGG"), "trimestral", 17),
+    new ClienteAbonado("12345678C", "Ana", "Rodríguez", "678678678", "ana@email.com", new Caravana("5278JJJ"), "semestral", 36),
+    new ClienteAbonado("12345678D", "Antonio", "Fernández", "654654654", "antonio@email.com", new Turismo("7654FFF"), "anual", 8)
 ];
 
 
 let abonadoRepositorio = new ClienteAbonadoRepositorio();
 for (const cliente of listaAbonados) {
-    abonadoRepositorio.alta(cliente);
+    abonadoRepositorio.save(cliente);
     
 }
 //console.log(repositorio.listaAbonados);
