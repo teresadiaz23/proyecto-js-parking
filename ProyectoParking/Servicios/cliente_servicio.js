@@ -23,9 +23,7 @@ class ClienteServicio{
                 plazasT[0].ocupada = true;
                 depositado = true;
             }
-            // else{
-            //     depositado = false;
-            // }
+            
             
 
         }else if(tipo.toLowerCase() == "motocicleta"){
@@ -34,9 +32,7 @@ class ClienteServicio{
                 plazasM[0] = true;
                 depositado = true;
             }
-            // else{
-            //     depositado = false;
-            // }
+            
             
 
         }else if(tipo.toLowerCase() == "caravana"){
@@ -45,24 +41,18 @@ class ClienteServicio{
                 plazasC[0].ocupada = true;
                 depositado = true;
             }
-            // else{
-            //     depositado = false;
-            // }
+            
             
 
         }
-        // else{
-        //     console.log("Ese vehículo no es válido");
-        // }
+        
         
         if(depositado){
-            let pin = Math.floor(Math.random() * (999999 - 111111) + 111111);
-            console.log(`Pin: ${pin}`);       
+            let pin = Math.floor(Math.random() * (999999 - 111111) + 111111);   
         
             let ticket = new Ticket(matricula, moment(), plazaAsignada.id, pin);
             ticketServicio.save(ticket);
-            // console.log(ticket);
-            // ticketServicio.imprimirTicket(ticketServicio.repo.listaTicket[1]);
+            
         }
         
         
@@ -79,20 +69,16 @@ class ClienteServicio{
         if(ticket === ticket2 && ticket !== undefined && plaza !== undefined){
             let hoy = moment();
             let tiempo = hoy.diff(ticket.fechaDeposito, 'minutes');
-            //console.log(tiempo);
+            
             total = tiempo * plaza.tarifa; 
-            //console.log(total.toFixed(2));
+            
             ticket.fechaSalida = hoy;
             ticket.coste = total;
-
-            //console.log(ticket);
-            parkingServicio.findAll().totalDinero.push(total);
-            //console.log(parkingServicio.repo.parking.totalDinero);
+            parkingServicio.findAll().dineroTickets.push(total);
+           
             plaza.ocupada = false;
         }
         
-        //console.log(plaza);
-
         return total.toFixed(2);
        
        
@@ -102,10 +88,6 @@ class ClienteServicio{
 }
 
 let clienteServicio = new ClienteServicio();
-
-// clienteServicio.depositarVehiculo("matricula", "turismo", parkingServicio.plazasLibresTurismo(),
-//                         parkingServicio.plazasLibresMoto(), parkingServicio.plazasLibresCaravana())
-// clienteServicio.retirarVehiculo("1111BBB",1,111111);
 
 export { clienteServicio };
 

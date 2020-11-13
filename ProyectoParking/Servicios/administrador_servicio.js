@@ -21,30 +21,11 @@ class AdminServicio{
     }
 
 
-    estadoParking(){
-        let listaPlazas = parkingServicio.repo.parking.plazas;
-
-        for (const plaza of listaPlazas) {
-            if (plaza.ocupada == false && plaza.cliente === null) {
-                console.log(`ID: ${plaza.id} -> vehículo: ${plaza.tipoVehiculo} -> Estado: Libre`);
-            }
-            else if (plaza.ocupada == true && plaza.cliente === null) {
-                console.log(`ID: ${plaza.id} -> vehículo: ${plaza.tipoVehiculo} -> Estado: Ocupada`);
-            }
-            else if (plaza.ocupada == false && plaza.cliente !== null) {
-                console.log(`ID: ${plaza.id} -> vehículo: ${plaza.tipoVehiculo} -> Estado: Abono Libre`);
-            }
-            else if (plaza.ocupada == true && plaza.cliente !== null) {
-                console.log(`ID: ${plaza.id} -> vehículo: ${plaza.tipoVehiculo} -> Estado: Abono Ocupada`);
-            }
-        }
-
-    }
     
     facturacion(fecha1, fecha2){
         let total = 0;
         let coste = [];
-        for (const ticket of ticketServicio.repo.listaTicket) {
+        for (const ticket of ticketServicio.findAll()) {
             if(ticket.fechaSalida.isBetween(fecha1, fecha2)){
                 coste.push(ticket.coste);
 
@@ -61,29 +42,16 @@ class AdminServicio{
     }
     
     consultaAbonados(){
-        let cobro = [];
-        let total = 0;
-        for (const abono of abonoServicio.findAll()) {
-            //console.log(abono.tipo, abono.precio);
-            cobro.push(abono.precio);
-        }
-        if(cobro.length > 0){
-            const reducer = (acumulador, valor) => acumulador + valor;
-            total = cobro.reduce(reducer);
-        }
-        let i = 1;
-        if(abonoServicio.findAll().length > 0){
-            for (const abono of abonoServicio.findAll()) {
-                
-                console.log(`\nAbono ${i++}\nTipo: ${abono.tipo}\nId Plaza: ${abono.clienteAbonado.idPlaza}
-Fecha Activación: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}
-Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month()+1}/${abono.fechaCancelacion.year()}
-Precio: ${abono.precio} €`);
-            }
-            
-        }
         
-        console.log(`\nTotal facturado: ${total.toFixed(2)} €`);
+        let total = 0;
+        
+        if(parkingServicio.findAll().dineroAbonos.length > 0){
+            const reducer = (acumulador, valor) => acumulador + valor;
+            total = parkingServicio.findAll().dineroAbonos.reduce(reducer);
+        }
+
+        return total.toFixed(2);
+
     
     }
     
@@ -142,7 +110,8 @@ Precio: ${abono.precio} €`);
         if(confirmado){
             abonadoRepositorio.save(cliente);
             abonoServicio.save(abono);
-            parkingServicio.findAll().totalDinero+=abono.precio;
+            plaza.cliente = cliente;
+            parkingServicio.findAll().dineroAbonos.push(abono.precio);
         }
 
 
@@ -193,9 +162,7 @@ Precio: ${abono.precio} €`);
 
         }
 
-        parkingServicio.findAll().totalDinero.push(abono.precio);
-        // console.log(parkingServicio.findAll().totalDinero);
-        // console.log(abonoServicio.findAll());
+        parkingServicio.findAll().dineroAbonos.push(abono.precio);
 
         return modificado;
     
@@ -247,6 +214,12 @@ Precio: ${abono.precio} €`);
         if(abono === abono2 && abono !== undefined){
             abonoServicio.findAll().splice(abono,1);
             abonadoRepositorio.listaAbonados.splice(cliente,1);
+            for (const plaza of parkingServicio.findAll().plazas) {
+                if(plaza.cliente === cliente){
+                    plaza.cliente=null;
+                }
+            }
+            
             borrado = true;
         }
 
@@ -264,20 +237,9 @@ Precio: ${abono.precio} €`);
             }
         }
 
-        if(abonos.length > 0){
-            let i = 1;
-            for (const abono of abonos) {
-                
-                console.log(`\nAbono ${i++}\nTipo: ${abono.tipo}\nId Plaza: ${abono.clienteAbonado.idPlaza}
-Fecha Activación: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}
-Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month()+1}/${abono.fechaCancelacion.year()}`);
-            }
-            
-        }
-        else{
-            //console.log(abonoRepositorio.listaAbonos);
-            console.log("No hay abonos que caduquen en el mes indicado");
-        }
+        return abonos;
+
+
     }
 
     caducidadAbonos10Dias(){
@@ -288,20 +250,9 @@ Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month
                 abonos.push(abono);
             }
         }
-        if(abonos.length > 0){
-            let i = 1;
-            for (const abono of abonos) {
-                
-                console.log(`\nAbono ${i++}\nTipo: ${abono.tipo}\nId Plaza: ${abono.clienteAbonado.idPlaza}
-Fecha Activación: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}
-Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month()+1}/${abono.fechaCancelacion.year()}`);
-            }
-            
-        }
-        else{
-            //console.log(abonoRepositorio.listaAbonos);
-            console.log("No hay abonos que caduquen en los próximos 10 días");
-        }
+
+        return abonos;
+
 
     }
 
@@ -309,19 +260,6 @@ Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month
 
 let adminServicio = new AdminServicio();
 
-//adminServicio.estadoParking();
-// console.log(adminServicio.facturacion(moment("2020-11-11 20:00"), moment("2020-11-12 20:00")));
-// let fecha1 = moment("2020-11-11 20:00");
-// let fecha2 =  moment("2020-11-12 20:00");
-// console.log(`Facturación entre ${fecha1.date()}/${fecha1.month()}/${fecha1.year()} y el ${fecha2.date()}/${fecha2.month()}/${fecha2.year()}: ${adminServicio.facturacion(fecha1,fecha2)} €`);
-//adminServicio.consultaAbonados();
-//adminServicio.caducidadAbonosMes(12);
-//adminServicio.caducidadAbonos10Dias();
-//console.log(adminServicio.altaAbonos("111111F", "Teresa", "Diaz", "1124141", "teresa@email.com", "2345HHH","turismo", "mensual"));
-//console.log(abonadoRepositorio.listaAbonados);
-//adminServicio.renovacionAbonos("12345678A", "semestral");
-//adminServicio.modificarDatosAbono("12345678A", "Juan", null, null, "juan@email.com");
-//adminServicio.borradoAbonos("12345678A", 111);
 
 export { adminServicio };
 

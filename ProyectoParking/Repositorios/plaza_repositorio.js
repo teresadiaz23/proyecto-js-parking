@@ -29,19 +29,7 @@ for (let i = 0; i < listaPlazas.length; i++) {
 
 }
 
-// for (let i = 0; i < listaPlazas.length; i++) {
-//     if(i < 15){
-//         listaPlazas[i]= new Plaza(i+1, new Turismo(0.12));
-//     }
-//     else if(i >= 15 && i < 30){
-//         listaPlazas[i]= new Plaza(i+1, new Motocicleta(0.08));
-//     }
-//     else{
-//         listaPlazas[i]= new Plaza(i+1, new Caravana(0.45));
-//     }
-    
 
-// }
 listaPlazas[4].cliente = abonadoRepositorio.listaAbonados[0];
 listaPlazas[16].cliente = abonadoRepositorio.listaAbonados[1];
 listaPlazas[35].cliente = abonadoRepositorio.listaAbonados[2];
