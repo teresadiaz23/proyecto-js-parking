@@ -1,6 +1,7 @@
 import { abonadoServicio } from "../Servicios/abonado_servicio.js";
 import { abonoServicio } from "../Servicios/abono_servicio.js";
 import { adminServicio } from "../Servicios/administrador_servicio.js";
+import { parkingController } from "./parking_controller.js";
 
 class AbonadoController{
 
@@ -38,7 +39,7 @@ Pulse 0 para salir
 
     obtenerAbono(dni, pin){
         if (abonadoServicio.obtenerAbono(dni, pin) !== undefined) {
-            abonoServicio.imprimirAbono(abonadoServicio.obtenerAbono(dni, pin));
+            parkingController.imprimirAbono(abonadoServicio.obtenerAbono(dni, pin));
         }
         else {
             console.log("\nNo existe ningún abono con esos datos");
@@ -47,7 +48,8 @@ Pulse 0 para salir
 
     obtenerDatosPesonales(dni, pin){
         if (abonadoServicio.obtenerDatosPersonales(dni, pin) !== undefined) {
-                            
+            let cliente = abonadoServicio.obtenerDatosPersonales(dni, pin);
+            console.log(`\nNombre: ${cliente.nombre}\nApellidos: ${cliente.apellidos}\nEmail: ${cliente.email}\nDNI: ${cliente.dni}`);               
         }
         else {
             console.log("\nNo existe ningún abono con esos datos");
@@ -58,7 +60,8 @@ Pulse 0 para salir
     modificarDatosAbono(dni, pin, nombre, apellidos, numTarjeta, email){
         if (adminServicio.modificarDatosAbono(dni, pin, nombre, apellidos, numTarjeta, email)) {
             console.log("\nLos datos se han modificado correctamente");
-            abonadoServicio.obtenerDatosPersonales(dni, pin);
+            let cliente = abonadoServicio.obtenerDatosPersonales(dni, pin);
+            console.log(`\nNombre: ${cliente.nombre}\nApellidos: ${cliente.apellidos}\nEmail: ${cliente.email}\nDNI: ${cliente.dni}`);
         }
         else {
             console.log("Error. Los datos no se han podido modificar");
@@ -69,7 +72,7 @@ Pulse 0 para salir
     renovacionAbonos(dni, pin, tipoAbono){
         if (adminServicio.renovacionAbonos(dni, pin, tipoAbono)) {
             console.log("\nSu abono se ha renovado correctamente");
-            abonoServicio.imprimirAbonoDni(dni, pin);
+            parkingController.imprimirAbonoDni(dni, pin);
         }
         else {
             console.log("Error. Su abono no se ha podido renovar");

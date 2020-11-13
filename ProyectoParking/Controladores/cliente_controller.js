@@ -1,5 +1,6 @@
 import { clienteServicio } from "../Servicios/cliente_servicio.js";
 import { ticketServicio } from "../Servicios/ticket_servicio.js";
+import { parkingController } from "./parking_controller.js";
 
 class ClienteController{
 
@@ -16,7 +17,7 @@ Pulse 0 para salir
         if (clienteServicio.depositarVehiculo(matricula, tipo, plazasT, plazasM, plazasC)) {
             console.log("");
 
-            ticketServicio.imprimirTicket(ticketServicio.findAll()[ticketServicio.findAll().length - 1]);
+            parkingController.imprimirTicket(ticketServicio.findAll()[ticketServicio.findAll().length - 1]);
 
             console.log("Su vehículo ha sido depositado correctamente");
 
@@ -38,6 +39,7 @@ Pulse 0 para salir
         }
 
     }
+
 
 
 

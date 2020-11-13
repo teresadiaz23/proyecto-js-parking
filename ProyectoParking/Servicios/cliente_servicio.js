@@ -85,7 +85,7 @@ class ClienteServicio{
             ticket.coste = total;
 
             //console.log(ticket);
-            parkingServicio.findAll().totalDinero.push(total);
+            parkingServicio.findAll().dineroTickets.push(total);
             //console.log(parkingServicio.repo.parking.totalDinero);
             plaza.ocupada = false;
         }

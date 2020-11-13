@@ -21,30 +21,30 @@ class AdminServicio{
     }
 
 
-    estadoParking(){
-        let listaPlazas = parkingServicio.repo.parking.plazas;
+    // estadoParking(){
+    //     let listaPlazas = parkingServicio.findAll().plazas;
 
-        for (const plaza of listaPlazas) {
-            if (plaza.ocupada == false && plaza.cliente === null) {
-                console.log(`ID: ${plaza.id} -> vehículo: ${plaza.tipoVehiculo} -> Estado: Libre`);
-            }
-            else if (plaza.ocupada == true && plaza.cliente === null) {
-                console.log(`ID: ${plaza.id} -> vehículo: ${plaza.tipoVehiculo} -> Estado: Ocupada`);
-            }
-            else if (plaza.ocupada == false && plaza.cliente !== null) {
-                console.log(`ID: ${plaza.id} -> vehículo: ${plaza.tipoVehiculo} -> Estado: Abono Libre`);
-            }
-            else if (plaza.ocupada == true && plaza.cliente !== null) {
-                console.log(`ID: ${plaza.id} -> vehículo: ${plaza.tipoVehiculo} -> Estado: Abono Ocupada`);
-            }
-        }
+    //     for (const plaza of listaPlazas) {
+    //         if (plaza.ocupada == false && plaza.cliente === null) {
+    //             console.log(`ID: ${plaza.id} -> vehículo: ${plaza.tipoVehiculo} -> Estado: Libre`);
+    //         }
+    //         else if (plaza.ocupada == true && plaza.cliente === null) {
+    //             console.log(`ID: ${plaza.id} -> vehículo: ${plaza.tipoVehiculo} -> Estado: Ocupada`);
+    //         }
+    //         else if (plaza.ocupada == false && plaza.cliente !== null) {
+    //             console.log(`ID: ${plaza.id} -> vehículo: ${plaza.tipoVehiculo} -> Estado: Abono Libre`);
+    //         }
+    //         else if (plaza.ocupada == true && plaza.cliente !== null) {
+    //             console.log(`ID: ${plaza.id} -> vehículo: ${plaza.tipoVehiculo} -> Estado: Abono Ocupada`);
+    //         }
+    //     }
 
-    }
+    // }
     
     facturacion(fecha1, fecha2){
         let total = 0;
         let coste = [];
-        for (const ticket of ticketServicio.repo.listaTicket) {
+        for (const ticket of ticketServicio.findAll()) {
             if(ticket.fechaSalida.isBetween(fecha1, fecha2)){
                 coste.push(ticket.coste);
 
@@ -61,29 +61,31 @@ class AdminServicio{
     }
     
     consultaAbonados(){
-        let cobro = [];
+        // let cobro = [];
         let total = 0;
-        for (const abono of abonoServicio.findAll()) {
-            //console.log(abono.tipo, abono.precio);
-            cobro.push(abono.precio);
-        }
-        if(cobro.length > 0){
+        // for (const abono of abonoServicio.findAll()) {
+        //     //console.log(abono.tipo, abono.precio);
+        //     cobro.push(abono.precio);
+        // }
+        if(parkingServicio.findAll().dineroAbonos.length > 0){
             const reducer = (acumulador, valor) => acumulador + valor;
-            total = cobro.reduce(reducer);
+            total = parkingServicio.findAll().dineroAbonos.reduce(reducer);
         }
-        let i = 1;
-        if(abonoServicio.findAll().length > 0){
-            for (const abono of abonoServicio.findAll()) {
+
+        return total.toFixed(2);
+//         let i = 1;
+//         if(abonoServicio.findAll().length > 0){
+//             for (const abono of abonoServicio.findAll()) {
                 
-                console.log(`\nAbono ${i++}\nTipo: ${abono.tipo}\nId Plaza: ${abono.clienteAbonado.idPlaza}
-Fecha Activación: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}
-Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month()+1}/${abono.fechaCancelacion.year()}
-Precio: ${abono.precio} €`);
-            }
+//                 console.log(`\nAbono ${i++}\nTipo: ${abono.tipo}\nId Plaza: ${abono.clienteAbonado.idPlaza}
+// Fecha Activación: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}
+// Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month()+1}/${abono.fechaCancelacion.year()}
+// Precio: ${abono.precio} €`);
+//             }
             
-        }
+//         }
         
-        console.log(`\nTotal facturado: ${total.toFixed(2)} €`);
+        // console.log(`\nTotal facturado: ${total.toFixed(2)} €`);
     
     }
     
@@ -142,7 +144,8 @@ Precio: ${abono.precio} €`);
         if(confirmado){
             abonadoRepositorio.save(cliente);
             abonoServicio.save(abono);
-            parkingServicio.findAll().totalDinero+=abono.precio;
+            plaza.cliente = cliente;
+            parkingServicio.findAll().dineroAbonos.push(abono.precio);
         }
 
 
@@ -193,7 +196,7 @@ Precio: ${abono.precio} €`);
 
         }
 
-        parkingServicio.findAll().totalDinero.push(abono.precio);
+        parkingServicio.findAll().dineroAbonos.push(abono.precio);
         // console.log(parkingServicio.findAll().totalDinero);
         // console.log(abonoServicio.findAll());
 
@@ -264,20 +267,22 @@ Precio: ${abono.precio} €`);
             }
         }
 
-        if(abonos.length > 0){
-            let i = 1;
-            for (const abono of abonos) {
+        return abonos;
+
+//         if(abonos.length > 0){
+//             let i = 1;
+//             for (const abono of abonos) {
                 
-                console.log(`\nAbono ${i++}\nTipo: ${abono.tipo}\nId Plaza: ${abono.clienteAbonado.idPlaza}
-Fecha Activación: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}
-Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month()+1}/${abono.fechaCancelacion.year()}`);
-            }
+//                 console.log(`\nAbono ${i++}\nTipo: ${abono.tipo}\nId Plaza: ${abono.clienteAbonado.idPlaza}
+// Fecha Activación: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}
+// Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month()+1}/${abono.fechaCancelacion.year()}`);
+//             }
             
-        }
-        else{
-            //console.log(abonoRepositorio.listaAbonos);
-            console.log("No hay abonos que caduquen en el mes indicado");
-        }
+//         }
+//         else{
+//             //console.log(abonoRepositorio.listaAbonos);
+//             console.log("No hay abonos que caduquen en el mes indicado");
+//         }
     }
 
     caducidadAbonos10Dias(){
@@ -288,20 +293,22 @@ Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month
                 abonos.push(abono);
             }
         }
-        if(abonos.length > 0){
-            let i = 1;
-            for (const abono of abonos) {
+
+        return abonos;
+//         if(abonos.length > 0){
+//             let i = 1;
+//             for (const abono of abonos) {
                 
-                console.log(`\nAbono ${i++}\nTipo: ${abono.tipo}\nId Plaza: ${abono.clienteAbonado.idPlaza}
-Fecha Activación: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}
-Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month()+1}/${abono.fechaCancelacion.year()}`);
-            }
+//                 console.log(`\nAbono ${i++}\nTipo: ${abono.tipo}\nId Plaza: ${abono.clienteAbonado.idPlaza}
+// Fecha Activación: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}
+// Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month()+1}/${abono.fechaCancelacion.year()}`);
+//             }
             
-        }
-        else{
-            //console.log(abonoRepositorio.listaAbonos);
-            console.log("No hay abonos que caduquen en los próximos 10 días");
-        }
+//         }
+//         else{
+//             //console.log(abonoRepositorio.listaAbonos);
+//             console.log("No hay abonos que caduquen en los próximos 10 días");
+//         }
 
     }
 

@@ -12,6 +12,7 @@ import { clienteController } from "./Controladores/cliente_controller.js";
 import { abonadoController } from "./Controladores/abonado_controller.js";
 import { adminController } from "./Controladores/admin_controller.js";
 import { parkingController } from "./Controladores/parking_controller.js";
+import { abonadoRepositorio } from "./Repositorios/cliente_abonado_repositorio.js";
 
 let plazasT = parkingServicio.plazasLibresTurismo();
 let plazasM = parkingServicio.plazasLibresMoto();
@@ -29,7 +30,7 @@ let fecha1 = undefined;
 let fecha2 = undefined;
 let nombre = "", apellidos = "", email = "", tipoAbono = "", tipoVehiculo = "", numTarjeta = "";
 
-console.log("Bienvenido al parking");
+console.log("Bienvenido al parking robotizado");
 
 
 do {  
@@ -95,6 +96,7 @@ do {
                         //     console.log("\nError. No se ha podido generar correctamente")
                         // }
                         adminController.altaAbono(dni, nombre, apellidos, numTarjeta, email, matricula, tipoVehiculo, tipoAbono);
+                        
                         break;
                     
                     case 0:
@@ -245,8 +247,8 @@ do {
                             fecha = readline.question("Introduce la segunda fecha y hora con el formato 'aaaa-mm-dd hh:mm': ");
                             fecha2 = moment(fecha);
                             // console.log(`\nFacturación entre ${fecha1.date()}/${fecha1.month()}/${fecha1.year()} y el ${fecha2.date()}/${fecha2.month()}/${fecha2.year()}: ${adminServicio.facturacion(fecha1,fecha2)} €`);
-                            console.log(`\nFacturación entre ${fecha1.date()}/${fecha1.month()}/${fecha1.year()} y el ${fecha2.date()}/${fecha2.month()}/${fecha2.year()}: ${adminController.facturacion(fecha1,fecha2)} €`);
-
+                            // console.log(`\nFacturación entre ${fecha1.date()}/${fecha1.month()}/${fecha1.year()} y el ${fecha2.date()}/${fecha2.month()}/${fecha2.year()}: ${adminController.facturacion(fecha1,fecha2)} €`);
+                            adminController.facturacion(fecha1,fecha2);
                             break;
                         case 3:
                             // adminServicio.consultaAbonados();
@@ -258,11 +260,13 @@ do {
                             let mes = readline.question("Introduce un mes en número: ");
                             console.log("\nAbonos que caducan en ese mes:")
                             // adminServicio.caducidadAbonosMes(mes);
+                            adminController.caducidadAbonosMes(mes);
 
                             break;
                         case 5:
                             console.log("\nAbonos que caducan en los próximos 10 días:")
-                            adminServicio.caducidadAbonos10Dias();
+                            // adminServicio.caducidadAbonos10Dias();
+                            adminController.caducidadAbonosProximos10Dias();
 
                             break;
                         default:
@@ -280,7 +284,7 @@ do {
 
             break;
         case 0:
-            console.log("Saliendo...");
+            console.log("\nSaliendo...");
             break;
 
         default:
