@@ -214,6 +214,12 @@ class AdminServicio{
         if(abono === abono2 && abono !== undefined){
             abonoServicio.findAll().splice(abono,1);
             abonadoRepositorio.listaAbonados.splice(cliente,1);
+            for (const plaza of parkingServicio.findAll().plazas) {
+                if(plaza.cliente === cliente){
+                    plaza.cliente=null;
+                }
+            }
+            
             borrado = true;
         }
 
