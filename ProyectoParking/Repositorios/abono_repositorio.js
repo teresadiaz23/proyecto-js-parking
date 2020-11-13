@@ -6,11 +6,15 @@ class AbonoRepositorio{
     constructor(listaAbonos){
         this.listaAbonos = listaAbonos;
     }
+
+    save(abono){
+        this.listaAbonos.push(abono);
+    }
 }
 
-let pin = Math.floor(Math.random() * (999999 - 111111) + 111111);
+let pin = Math.floor(Math.random() * (999999 - 111112) + 111112);
 
-let a1 = new Abono(pin, "mensual", moment(),  moment().add(1, 'months'), abonadoRepositorio.listaAbonados[0], 25);
+let a1 = new Abono(111111, "mensual", moment("2020-10-20"),  moment("2020-10-22").add(1, 'months'), abonadoRepositorio.listaAbonados[0], 25);
 pin = Math.floor(Math.random() * (999999 - 111111) + 111111);
 let a2 = new Abono(pin, "trimestral", moment(),  moment().add(3, 'months'), abonadoRepositorio.listaAbonados[1], 70);
 pin = Math.floor(Math.random() * (999999 - 111111) + 111111);
@@ -23,5 +27,6 @@ let listaAbonos = [];
 listaAbonos = listaAbonos.concat(a1,a2,a3,a4);
 let abonoRepositorio = new AbonoRepositorio(listaAbonos);
 
+//console.log(a1.fechaCancelacion);
 
 export { abonoRepositorio };
