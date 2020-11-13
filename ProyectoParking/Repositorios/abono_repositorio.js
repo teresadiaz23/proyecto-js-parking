@@ -27,6 +27,5 @@ let listaAbonos = [];
 listaAbonos = listaAbonos.concat(a1,a2,a3,a4);
 let abonoRepositorio = new AbonoRepositorio(listaAbonos);
 
-//console.log(a1.fechaCancelacion);
 
 export { abonoRepositorio };

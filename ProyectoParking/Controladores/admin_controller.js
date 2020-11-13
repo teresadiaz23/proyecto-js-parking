@@ -96,8 +96,7 @@ Precio: ${abono.precio} €`);
 Fecha Activación: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}
 Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month()+1}/${abono.fechaCancelacion.year()}
 Precio: ${abono.precio} €`);
-            }
-            
+            }   
         }
         else{
             

@@ -40,9 +40,6 @@ Pulse 0 para salir
 
     }
 
-
-
-
 }
 
 let clienteController = new ClienteController();
