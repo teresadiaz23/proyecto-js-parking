@@ -41,22 +41,28 @@ class AbonadoServicio{
         
     }
 
-    obternerAbono(matricula, dni){
+    obtenerAbono(dni, pin){
         let cliente = abonadoRepositorio.listaAbonados.find(cliente => cliente.dni === dni);
-        let cliente2 = abonadoRepositorio.listaAbonados.find(cliente => cliente.vehiculo.matricula === matricula);
-        let abono;
+        let abono = abonoServicio.findAll().find(abono => abono.clienteAbonado == cliente);
+        let abono2 = abonoServicio.findAll().find(abono => abono.pin == pin);
         
-        if(cliente === cliente2 && cliente !== undefined){
-            abono = abonoServicio.findAll().find(abono => abono.clienteAbonado === cliente);
-            
-//             console.log(`\nAbono\nTipo: ${abono.tipo}\nId Plaza: ${abono.clienteAbonado.idPlaza}
-// Fecha Activación: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}
-// Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month()+1}/${abono.fechaCancelacion.year()}`);
-            
-        }
+        
         return abono;
         
     }
+
+    // obtenerAbono(matricula, dni){
+    //     let cliente = abonadoRepositorio.listaAbonados.find(cliente => cliente.dni === dni);
+    //     let cliente2 = abonadoRepositorio.listaAbonados.find(cliente => cliente.vehiculo.matricula === matricula);
+    //     let abono;
+        
+    //     if(cliente === cliente2 && cliente !== undefined){
+    //         abono = abonoServicio.findAll().find(abono => abono.clienteAbonado === cliente);
+            
+    //     }
+    //     return abono;
+        
+    // }
 
     obtenerDatosPersonales(dni, pin){
         let cliente = abonadoRepositorio.listaAbonados.find(cliente => cliente.dni === dni);

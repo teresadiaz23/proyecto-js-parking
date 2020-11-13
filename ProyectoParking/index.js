@@ -147,14 +147,18 @@ Pulse 0 para salir
 
                         break;
                     case 3:
-                        matricula = readline.question('Introduce la matrícula de su vehículo: ');
+                        // matricula = readline.question('Introduce la matrícula de su vehículo: ');
                         dni = readline.question('Introduce su dni: ');
-                        if (abonadoServicio.verAbono(matricula, dni) !== undefined) {
-                            abonoServicio.imprimirAbono(abonadoServicio.obtenerAbono(matricula, dni));
+                        pin = readline.question('Introduce su pin: ');
+                        if (abonadoServicio.obtenerAbono(dni, pin) !== undefined) {
+                            abonoServicio.imprimirAbono(abonadoServicio.obtenerAbono(dni, pin));
                         }
                         else {
                             console.log("\nNo existe ningún abono con esos datos");
                         }
+                        // dni = readline.question('Introduce su dni: ');
+                        // pin = readline.question('Introduce su pin: ');
+                        // abonoServicio.imprimirAbonoDni(dni, pin);
 
 
                         break;
@@ -190,6 +194,14 @@ Pulse 0 para salir
 
                         break;
                     case 6:
+                        dni = readline.question('Introduce su dni: ');
+                        pin = readline.question('Introduce su pin: ');
+                        if(adminServicio.borradoAbono(dni, pin)){
+                            console.log("\nSe ha borrado correctamente");
+                        }
+                        else{
+                            console.log("\nError. No se ha podido borrar");
+                        }
 
                         break;
                     case 0:

@@ -237,7 +237,20 @@ Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month
 
     }
     
-    borradoAbonos(){
+    borradoAbono(dni, pin){
+        let cliente = abonadoRepositorio.listaAbonados.find(cliente => cliente.dni == dni);
+        let abono = abonoServicio.findAll().find(abono => abono.clienteAbonado == cliente);
+        let abono2 = abonoServicio.findAll().find(abono => abono.pin == pin);
+        let borrado = false;
+
+        if(abono === abono2 && abono !== undefined){
+            abonoServicio.findAll().splice(abono,1);
+            abonadoRepositorio.listaAbonados.splice(cliente,1);
+            borrado = true;
+        }
+
+        return borrado;
+
     
     }
     
@@ -307,6 +320,7 @@ let adminServicio = new AdminServicio();
 //console.log(abonadoRepositorio.listaAbonados);
 //adminServicio.renovacionAbonos("12345678A", "semestral");
 //adminServicio.modificarDatosAbono("12345678A", "Juan", null, null, "juan@email.com");
+//adminServicio.borradoAbonos("12345678A", 111);
 
 export { adminServicio };
 
