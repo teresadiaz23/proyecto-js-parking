@@ -15,9 +15,10 @@ class AbonoServicio{
 
     imprimirAbono(abono){
         
-        console.log(`\nAbono\nTipo: ${abono.tipo}\nId Plaza: ${abono.clienteAbonado.idPlaza}
+        console.log(`\nAbono\nTipo: ${abono.tipo}\nPin: ${abono.pin}\nId Plaza: ${abono.clienteAbonado.idPlaza}
 Fecha Activación: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}
-Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month()+1}/${abono.fechaCancelacion.year()}`);
+Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month()+1}/${abono.fechaCancelacion.year()}
+Precio: ${abono.precio} €`);
             
     }
     imprimirAbonoDni(dni, pin){
@@ -27,9 +28,10 @@ Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month
         let abono2 = abonoServicio.findAll().find(abono => abono.pin == pin);
         
         if(abono === abono2 && abono !== undefined){
-            console.log(`\nAbono\nTipo: ${abono.tipo}\nId Plaza: ${abono.clienteAbonado.idPlaza}
+            console.log(`\nAbono\nTipo: ${abono.tipo}\nPin: ${abono.pin}\nId Plaza: ${abono.clienteAbonado.idPlaza}
 Fecha Activación: ${abono.fechaActivacion.date()}/${abono.fechaActivacion.month()+1}/${abono.fechaActivacion.year()}
-Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month()+1}/${abono.fechaCancelacion.year()}`);
+Fecha Caducidad: ${abono.fechaCancelacion.date()}/${abono.fechaCancelacion.month()+1}/${abono.fechaCancelacion.year()}
+Precio: ${abono.precio} €`);
         }
         
             
