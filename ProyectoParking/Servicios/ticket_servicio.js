@@ -6,6 +6,14 @@ class TicketServicio{
         this.repo = repo;
     }
 
+    save(ticket){
+        this.repo.save(ticket);
+    }
+
+    findAll(){
+        return this.repo.findAll();
+    }
+
     imprimirTicket(ticket){
         console.log(`*************************************`);
         console.log(`*              Ticket               *`);
@@ -22,6 +30,6 @@ class TicketServicio{
 }
 
 let ticketServicio = new TicketServicio(ticketRepo);
-//ticketServicio.imprimirTicket(ticketRepo.listaTicket[0]);
+// ticketServicio.imprimirTicket(ticketRepo.listaTicket[0]);
 
 export { ticketServicio };
