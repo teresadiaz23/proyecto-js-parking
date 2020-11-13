@@ -5,3 +5,4 @@
     - dni = 12345678A
     - pin = 111111
     - matricula = 1234BBB
+    - id plaza = 5

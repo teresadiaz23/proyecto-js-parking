@@ -66,11 +66,16 @@ class AbonadoServicio{
 
     obtenerDatosPersonales(dni, pin){
         let cliente = abonadoRepositorio.listaAbonados.find(cliente => cliente.dni === dni);
-        let abono = abonoServicio.findAll().find(abono => abono.pin == pin);
-        let cliente2 = abono.clienteAbonado;
-        if(cliente === cliente2){
-            console.log(`Nombre: ${cliente.nombre}\nApellidos: ${cliente.apellidos}\nEmail: ${cliente.email}\nDNI: ${cliente.dni}`);
+        let abono = abonoServicio.findAll().find(abono => abono.clienteAbonado == cliente);
+        let abono2 = abonoServicio.findAll().find(abono => abono.pin == pin);
+        
+        if(abono === abono2 && abono !== undefined){
+            console.log(`\nNombre: ${cliente.nombre}\nApellidos: ${cliente.apellidos}\nEmail: ${cliente.email}\nDNI: ${cliente.dni}`);
         }
+
+        return cliente;
+
+        
         
     }
 }

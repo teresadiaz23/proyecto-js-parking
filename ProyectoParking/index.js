@@ -89,7 +89,7 @@ Pulse 0 para salir
                         tipoAbono = readline.question('Introduce el tipo del abono(mensual, trimestral, semestral o anual): ');
                         if(adminServicio.altaAbonos(dni, nombre, apellidos, numTarjeta, email, matricula, tipoVehiculo, tipoAbono)){
                             console.log("\nHa obtenido un abono correctamente");
-                            console.log(`\n${abonoServicio.imprimirAbono(abonoServicio.findAll()[abonoServicio.findAll().length-1])} `);
+                            abonoServicio.imprimirAbono(abonoServicio.findAll()[abonoServicio.findAll().length-1]);
                         }
                         else{
                             console.log("\nError. No se ha podido generar correctamente")
@@ -115,9 +115,10 @@ Pulse 0 para salir
                 op2 = parseInt(readline.question(`\nPulse 1 para depositar un vehículo
 Pulse 2 para retirar un vehículo
 Pulse 3 para ver su abono
-Pulse 4 para modificar datos abono
-Pulse 5 para renovar su abono
-Pulse 6 para borrar su abono
+Pulse 4 para ver sus datos personales
+Pulse 5 para modificar datos personales
+Pulse 6 para renovar su abono
+Pulse 7 para borrar su abono
 Pulse 0 para salir
 `));
                 switch (op2) {
@@ -163,6 +164,17 @@ Pulse 0 para salir
 
                         break;
                     case 4:
+                        dni = readline.question('Introduce su dni: ');
+                        pin = readline.question('Introduce su pin: ');
+                        if (abonadoServicio.obtenerDatosPersonales(dni, pin) !== undefined) {
+                            
+                        }
+                        else {
+                            console.log("\nNo existe ningún abono con esos datos");
+                        }
+                        
+                        break;
+                    case 5:
                         // nombre = null, apellidos = null, email = null, numTarjeta = null;
                         dni = readline.question('Introduce su dni: ');
                         pin = readline.question('Introduce su pin: ');
@@ -180,7 +192,7 @@ Pulse 0 para salir
                         }
 
                         break;
-                    case 5:
+                    case 6:
                         dni = readline.question('Introduce su dni: ');
                         pin = readline.question('Introduce su pin: ');
                         tipoAbono = readline.question('Introduce el tipo del abono a renovar(mensual, trimestral, semestral o anual): ');
@@ -193,7 +205,7 @@ Pulse 0 para salir
                         }
 
                         break;
-                    case 6:
+                    case 7:
                         dni = readline.question('Introduce su dni: ');
                         pin = readline.question('Introduce su pin: ');
                         if(adminServicio.borradoAbono(dni, pin)){
