@@ -6,6 +6,14 @@ class TicketServicio{
         this.repo = repo;
     }
 
+    save(ticket){
+        this.repo.save(ticket);
+    }
+
+    findAll(){
+        return this.repo.findAll();
+    }
+
     imprimirTicket(ticket){
         console.log(`*************************************`);
         console.log(`*              Ticket               *`);

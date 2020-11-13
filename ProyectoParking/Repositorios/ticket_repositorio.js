@@ -5,6 +5,13 @@ class TicketRepositorio{
     constructor(listaTicket=[]){
         this.listaTicket = listaTicket;
     }
+
+    save(ticket){
+        this.listaTicket.push(ticket);
+    }
+    findAll(){
+        return this.listaTicket;
+    }
 }
 
 

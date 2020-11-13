@@ -14,7 +14,7 @@ class AbonoRepositorio{
 
 let pin = Math.floor(Math.random() * (999999 - 111111) + 111111);
 
-let a1 = new Abono(pin, "mensual", moment("2020-10-20"),  moment("2020-10-22").add(1, 'months'), abonadoRepositorio.listaAbonados[0], 25);
+let a1 = new Abono(111, "mensual", moment("2020-10-20"),  moment("2020-10-22").add(1, 'months'), abonadoRepositorio.listaAbonados[0], 25);
 pin = Math.floor(Math.random() * (999999 - 111111) + 111111);
 let a2 = new Abono(pin, "trimestral", moment(),  moment().add(3, 'months'), abonadoRepositorio.listaAbonados[1], 70);
 pin = Math.floor(Math.random() * (999999 - 111111) + 111111);

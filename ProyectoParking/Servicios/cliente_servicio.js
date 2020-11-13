@@ -60,7 +60,7 @@ class ClienteServicio{
             console.log(`Pin: ${pin}`);       
         
             let ticket = new Ticket(matricula, moment(), plazaAsignada.id, pin);
-            ticketRepo.listaTicket.push(ticket);
+            ticketServicio.save(ticket);
             // console.log(ticket);
             // ticketServicio.imprimirTicket(ticketServicio.repo.listaTicket[1]);
         }
@@ -72,10 +72,11 @@ class ClienteServicio{
     }
     
     retirarVehiculo(matricula, id, pin){
-        let ticket  = ticketServicio.repo.listaTicket.find(ticket => ticket.pin === pin);
-        let plaza = parkingServicio.repo.parking.plazas.find(plaza => plaza.id === id);
+        let ticket  = ticketServicio.findAll().find(ticket => ticket.pin === pin);
+        let ticket2 = ticketServicio.findAll().find(ticket => ticket.matricula === matricula);
+        let plaza = parkingServicio.findAll().plazas.find(plaza => plaza.id === id);
         let total = -1;
-        if(ticket !== undefined && plaza !== undefined){
+        if(ticket === ticket2 && ticket !== undefined && plaza !== undefined){
             let hoy = moment();
             let tiempo = hoy.diff(ticket.fechaDeposito, 'minutes');
             //console.log(tiempo);
@@ -85,7 +86,7 @@ class ClienteServicio{
             ticket.coste = total;
 
             //console.log(ticket);
-            parkingServicio.repo.parking.totalDinero.push(total);
+            parkingServicio.findAll().totalDinero.push(total);
             //console.log(parkingServicio.repo.parking.totalDinero);
             plaza.ocupada = false;
         }

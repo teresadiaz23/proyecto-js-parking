@@ -7,6 +7,11 @@ class ParkingServicio{
     constructor(repo){
         this.repo = repo;
     }
+
+    findAll(){
+        return this.repo.findAll();
+    }
+    
     plazasLibresTurismo(){
         let libres = [];
         for (let i = 0; i < this.repo.parking.plazas.length; i++) {
