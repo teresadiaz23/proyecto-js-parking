@@ -7,6 +7,11 @@ import { abonadoServicio } from "./Servicios/abonado_servicio.js";
 import { abonoRepositorio } from "./Repositorios/abono_repositorio.js";
 import { adminServicio } from "./Servicios/administrador_servicio.js";
 import { abonoServicio } from "./Servicios/abono_servicio.js";
+import { mainController } from "./Controladores/main_controller.js";
+import { clienteController } from "./Controladores/cliente_controller.js";
+import { abonadoController } from "./Controladores/abonado_controller.js";
+import { adminController } from "./Controladores/admin_controller.js";
+import { parkingController } from "./Controladores/parking_controller.js";
 
 let plazasT = parkingServicio.plazasLibresTurismo();
 let plazasM = parkingServicio.plazasLibresMoto();
@@ -29,53 +34,48 @@ console.log("Bienvenido al parking");
 
 do {  
 
-    op = parseInt(readline.question(`\nPulse 1 si eres cliente normal
-Pulse 2 si eres cliente abonado
-Pulse 3 si eres administrador
-Pulse 0 para salir
-`));
+    op = parseInt(readline.question(mainController.menuPrincipal()));
     switch (op) {
         case 1:
             do {
-                op2 = parseInt(readline.question(`\nPulse 1 para depositar un vehículo
-Pulse 2 para retirar un vehículo
-Pulse 3 para obtener un abono
-Pulse 0 para salir
-`));
+                op2 = parseInt(readline.question(clienteController.menuCliente()));
                 switch (op2) {
                     case 1:
                         console.log("");
-                        parkingServicio.imprimirPlazasLibres(parkingServicio.plazasLibresTurismo(),
+                        parkingController.plazasLibres(parkingServicio.plazasLibresTurismo(),
                          parkingServicio.plazasLibresMoto(), parkingServicio.plazasLibresCaravana());
                         matricula = readline.question('Introduce la matrícula de su vehículo: ');
                         tipo = readline.question('Introduce el tipo de vehículo (turismo, motocicleta o caravana): ');
-                        if (clienteServicio.depositarVehiculo(matricula, tipo, parkingServicio.plazasLibresTurismo(),
-                        parkingServicio.plazasLibresMoto(), parkingServicio.plazasLibresCaravana())) {
-                            console.log("");
+                        // if (clienteServicio.depositarVehiculo(matricula, tipo, parkingServicio.plazasLibresTurismo(),
+                        // parkingServicio.plazasLibresMoto(), parkingServicio.plazasLibresCaravana())) {
+                        //     console.log("");
                             
-                            ticketServicio.imprimirTicket(ticketServicio.findAll()[ticketServicio.findAll().length-1]);
+                        //     ticketServicio.imprimirTicket(ticketServicio.findAll()[ticketServicio.findAll().length-1]);
                            
-                            console.log("Su vehículo ha sido depositado correctamente");
+                        //     console.log("Su vehículo ha sido depositado correctamente");
 
-                        }
-                        else{
-                            console.log("Los datos introducidos no son correctos")
-                        }
+                        // }
+                        // else{
+                        //     console.log("Los datos introducidos no son correctos")
+                        // }
+                        clienteController.depositarVehiculo(matricula, tipo, parkingServicio.plazasLibresTurismo(),
+                         parkingServicio.plazasLibresMoto(), parkingServicio.plazasLibresCaravana());
 
                         break;
                     case 2:
                         matricula = readline.question('Introduce la matrícula de su vehículo: ');
                         id = parseInt(readline.question('Introduce la identificador de la plaza: '));
                         pin = parseInt(readline.question('Introduce el pin del ticket: '));
-                        let total = clienteServicio.retirarVehiculo(matricula, id, pin);
-                        if(total >= 0){
-                            console.log(`\nImporte a pagar: ${total}€`);
-                            console.log("Puede retirar su vehículo");
+                        // let total = clienteServicio.retirarVehiculo(matricula, id, pin);
+                        // if(total >= 0){
+                        //     console.log(`\nImporte a pagar: ${total}€`);
+                        //     console.log("Puede retirar su vehículo");
 
-                        }
-                        else{
-                            console.log("\nLos datos introducidos no son correctos");
-                        }
+                        // }
+                        // else{
+                        //     console.log("\nLos datos introducidos no son correctos");
+                        // }
+                        clienteController.retirarVehiculo(matricula, id, pin);
                         
                         break;
                     case 3:
@@ -87,14 +87,14 @@ Pulse 0 para salir
                         matricula = readline.question('Introduce la matrícula de su vehículo: ');
                         tipoVehiculo = readline.question('Introduce el tipo de su vehículo(turismo, motocicleta o caravana): ');
                         tipoAbono = readline.question('Introduce el tipo del abono(mensual, trimestral, semestral o anual): ');
-                        if(adminServicio.altaAbonos(dni, nombre, apellidos, numTarjeta, email, matricula, tipoVehiculo, tipoAbono)){
-                            console.log("\nHa obtenido un abono correctamente");
-                            abonoServicio.imprimirAbono(abonoServicio.findAll()[abonoServicio.findAll().length-1]);
-                        }
-                        else{
-                            console.log("\nError. No se ha podido generar correctamente")
-                        }
-                        
+                        // if(adminServicio.altaAbonos(dni, nombre, apellidos, numTarjeta, email, matricula, tipoVehiculo, tipoAbono)){
+                        //     console.log("\nHa obtenido un abono correctamente");
+                        //     abonoServicio.imprimirAbono(abonoServicio.findAll()[abonoServicio.findAll().length-1]);
+                        // }
+                        // else{
+                        //     console.log("\nError. No se ha podido generar correctamente")
+                        // }
+                        adminController.altaAbono(dni, nombre, apellidos, numTarjeta, email, matricula, tipoVehiculo, tipoAbono);
                         break;
                     
                     case 0:
@@ -112,15 +112,7 @@ Pulse 0 para salir
             break;
         case 2:
             do {
-                op2 = parseInt(readline.question(`\nPulse 1 para depositar un vehículo
-Pulse 2 para retirar un vehículo
-Pulse 3 para ver su abono
-Pulse 4 para ver sus datos personales
-Pulse 5 para modificar datos personales
-Pulse 6 para renovar su abono
-Pulse 7 para borrar su abono
-Pulse 0 para salir
-`));
+                op2 = parseInt(readline.question(abonadoController.menuAbonado()));
                 switch (op2) {
                     case 1:
                         matricula = readline.question('Introduce la matrícula de su vehículo: ');
@@ -233,13 +225,7 @@ Pulse 0 para salir
             let password = readline.question("Introduce la contraseña: ");
             if (adminServicio.comprobarPassword(password)) {
                 do {
-                    op2 = parseInt(readline.question(`\nPulse 1 para ver el estado del parking
-Pulse 2 para ver la facturación entre dos fechas
-Pulse 3 para consultar los abonados
-Pulse 4 para ver los abonos que caducan en un mes específico
-Pulse 5 para ver los abonos que caducan en los próximos 10 días
-Pulse 0 para salir
-`));
+                    op2 = parseInt(readline.question(adminController.menuAdmin()));
                     switch (op2) {
                         case 1:
                             adminServicio.estadoParking();

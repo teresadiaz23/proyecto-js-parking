@@ -56,8 +56,7 @@ class ClienteServicio{
         // }
         
         if(depositado){
-            let pin = Math.floor(Math.random() * (999999 - 111111) + 111111);
-            console.log(`Pin: ${pin}`);       
+            let pin = Math.floor(Math.random() * (999999 - 111111) + 111111);   
         
             let ticket = new Ticket(matricula, moment(), plazaAsignada.id, pin);
             ticketServicio.save(ticket);

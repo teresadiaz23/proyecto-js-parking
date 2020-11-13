@@ -101,10 +101,10 @@ class ParkingServicio{
     //     return libres;
     // }
     
-    imprimirPlazasLibres(a,b,c){
-        console.log(`Hay ${a.length} plazas de turismos, ${b.length} plazas de motocicletas y ${c.length}
-         plazas de caravanas libres`);
-    }
+    // imprimirPlazasLibres(a,b,c){
+    //     console.log(`Hay ${a.length} plazas de turismos, ${b.length} plazas de motocicletas y ${c.length}
+    //      plazas de caravanas libres`);
+    // }
 
 }
 
