@@ -11,7 +11,7 @@ class AbonadoServicio{
         let cliente2 = abonadoRepositorio.listaAbonados.find(cliente => cliente.vehiculo.matricula === matricula);
         if(cliente === cliente2 && cliente !== undefined){
             depositado = true;
-            let plaza = parkingServicio.repo.parking.plazas.find(plaza => plaza.cliente === cliente);
+            let plaza = parkingServicio.findAll().plazas.find(plaza => plaza.cliente === cliente);
             plaza.ocupada = true;
         }
 
@@ -69,9 +69,9 @@ class AbonadoServicio{
         let abono = abonoServicio.findAll().find(abono => abono.clienteAbonado == cliente);
         let abono2 = abonoServicio.findAll().find(abono => abono.pin == pin);
         
-        if(abono === abono2 && abono !== undefined){
-            console.log(`\nNombre: ${cliente.nombre}\nApellidos: ${cliente.apellidos}\nEmail: ${cliente.email}\nDNI: ${cliente.dni}`);
-        }
+        // if(abono === abono2 && abono !== undefined){
+        //     console.log(`\nNombre: ${cliente.nombre}\nApellidos: ${cliente.apellidos}\nEmail: ${cliente.email}\nDNI: ${cliente.dni}`);
+        // }
 
         return cliente;
 

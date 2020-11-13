@@ -56,8 +56,7 @@ class ClienteServicio{
         // }
         
         if(depositado){
-            let pin = Math.floor(Math.random() * (999999 - 111111) + 111111);
-            console.log(`Pin: ${pin}`);       
+            let pin = Math.floor(Math.random() * (999999 - 111111) + 111111);   
         
             let ticket = new Ticket(matricula, moment(), plazaAsignada.id, pin);
             ticketServicio.save(ticket);
@@ -86,7 +85,7 @@ class ClienteServicio{
             ticket.coste = total;
 
             //console.log(ticket);
-            parkingServicio.findAll().totalDinero.push(total);
+            parkingServicio.findAll().dineroTickets.push(total);
             //console.log(parkingServicio.repo.parking.totalDinero);
             plaza.ocupada = false;
         }

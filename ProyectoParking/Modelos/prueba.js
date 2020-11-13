@@ -1,4 +1,4 @@
-import pkg from 'readline-sync';
+import * as readline from 'readline-sync';
 
-let userName = pkg.question('May I have your name? ');
+let userName = readline.question('May I have your name? ');
 console.log('Hi ' + userName + '!');
