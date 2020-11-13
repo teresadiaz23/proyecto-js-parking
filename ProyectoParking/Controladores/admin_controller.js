@@ -23,6 +23,22 @@ Pulse 0 para salir
         }
     }
 
+    estadoParking(){
+        return adminServicio.estadoParking();
+    }
+
+    facturacion(fecha1,fecha2){
+        return adminServicio.facturacion(fecha1,fecha2);
+    }
+
+    consultaAbonados(){
+        return adminServicio.consultaAbonados();
+    }
+
+    caducidadAbonosMes(){
+        return adminServicio.caducidadAbonosMes(mes);
+    }
+
 }
 
 let adminController = new AdminController();

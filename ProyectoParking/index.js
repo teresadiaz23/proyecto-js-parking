@@ -117,53 +117,57 @@ do {
                     case 1:
                         matricula = readline.question('Introduce la matrícula de su vehículo: ');
                         dni = readline.question('Introduce su dni: ');
-                        if (abonadoServicio.depositarAbonados(matricula, dni)) {
+                        // if (abonadoServicio.depositarAbonados(matricula, dni)) {
 
-                            console.log("\nEl vehículo se ha depositado correctamente");
+                        //     console.log("\nEl vehículo se ha depositado correctamente");
                             
-                        }
-                        else {
-                            console.log("\nNo se encuentra ningún cliente abonado con esos datos");
-                        }
+                        // }
+                        // else {
+                        //     console.log("\nNo se encuentra ningún cliente abonado con esos datos");
+                        // }
+                        abonadoController.depositarAbonados(matricula, dni);
 
                         break;
                     case 2:
                         matricula = readline.question('Introduce la matrícula de su vehículo: ');
                         id = readline.question('Introduce el identificador de la plaza: ');
                         pin = readline.question('Introduce el pin: ');
-                        if(abonadoServicio.retirarAbonados(matricula, id, pin)){
-                            console.log("\nPuede retirar su vehículo");
-                        }
-                        else {
-                            console.log("\nNo se encuentra ningún cliente abonado con esos datos o la plaza no está ocupada");
-                        }
+                        // if(abonadoServicio.retirarAbonados(matricula, id, pin)){
+                        //     console.log("\nPuede retirar su vehículo");
+                        // }
+                        // else {
+                        //     console.log("\nNo se encuentra ningún cliente abonado con esos datos o la plaza no está ocupada");
+                        // }
+                        abonadoController.retirarAbonados(matricula, id, pin);
 
                         break;
                     case 3:
                         // matricula = readline.question('Introduce la matrícula de su vehículo: ');
                         dni = readline.question('Introduce su dni: ');
                         pin = readline.question('Introduce su pin: ');
-                        if (abonadoServicio.obtenerAbono(dni, pin) !== undefined) {
-                            abonoServicio.imprimirAbono(abonadoServicio.obtenerAbono(dni, pin));
-                        }
-                        else {
-                            console.log("\nNo existe ningún abono con esos datos");
-                        }
+                        // if (abonadoServicio.obtenerAbono(dni, pin) !== undefined) {
+                        //     abonoServicio.imprimirAbono(abonadoServicio.obtenerAbono(dni, pin));
+                        // }
+                        // else {
+                        //     console.log("\nNo existe ningún abono con esos datos");
+                        // }
                         // dni = readline.question('Introduce su dni: ');
                         // pin = readline.question('Introduce su pin: ');
                         // abonoServicio.imprimirAbonoDni(dni, pin);
+                        abonadoController.obtenerAbono(dni, pin);
 
 
                         break;
                     case 4:
                         dni = readline.question('Introduce su dni: ');
                         pin = readline.question('Introduce su pin: ');
-                        if (abonadoServicio.obtenerDatosPersonales(dni, pin) !== undefined) {
+                        // if (abonadoServicio.obtenerDatosPersonales(dni, pin) !== undefined) {
                             
-                        }
-                        else {
-                            console.log("\nNo existe ningún abono con esos datos");
-                        }
+                        // }
+                        // else {
+                        //     console.log("\nNo existe ningún abono con esos datos");
+                        // }
+                        abonadoController.obtenerDatosPesonales(dni, pin);
                         
                         break;
                     case 5:
@@ -175,37 +179,40 @@ do {
                         apellidos = readline.question('Introduce sus apellidos: ');
                         numTarjeta = readline.question('Introduce un número de tarjeta bancaria: ');
                         email = readline.question('Introduce su email: ');
-                        if (adminServicio.modificarDatosAbono(dni, pin, nombre, apellidos, numTarjeta, email)) {
-                            console.log("\nLos datos se han modificado correctamente");
-                            abonadoServicio.obtenerDatosPersonales(dni, pin);
-                        }
-                        else {
-                            console.log("Error. Los datos no se han podido modificar");
-                        }
+                        // if (adminServicio.modificarDatosAbono(dni, pin, nombre, apellidos, numTarjeta, email)) {
+                        //     console.log("\nLos datos se han modificado correctamente");
+                        //     abonadoServicio.obtenerDatosPersonales(dni, pin);
+                        // }
+                        // else {
+                        //     console.log("Error. Los datos no se han podido modificar");
+                        // }
+                        abonadoController.modificarDatosAbono(dni, pin, nombre, apellidos, numTarjeta, email);
 
                         break;
                     case 6:
                         dni = readline.question('Introduce su dni: ');
                         pin = readline.question('Introduce su pin: ');
                         tipoAbono = readline.question('Introduce el tipo del abono a renovar(mensual, trimestral, semestral o anual): ');
-                        if (adminServicio.renovacionAbonos(dni, pin, tipoAbono)) {
-                            console.log("\nSu abono se ha renovado correctamente");
-                            abonoServicio.imprimirAbonoDni(dni, pin);
-                        }
-                        else {
-                            console.log("Error. Su abono no se ha podido renovar");
-                        }
+                        // if (adminServicio.renovacionAbonos(dni, pin, tipoAbono)) {
+                        //     console.log("\nSu abono se ha renovado correctamente");
+                        //     abonoServicio.imprimirAbonoDni(dni, pin);
+                        // }
+                        // else {
+                        //     console.log("Error. Su abono no se ha podido renovar");
+                        // }
+                        abonadoController.renovacionAbonos(dni, pin, tipoAbono);
 
                         break;
                     case 7:
                         dni = readline.question('Introduce su dni: ');
                         pin = readline.question('Introduce su pin: ');
-                        if(adminServicio.borradoAbono(dni, pin)){
-                            console.log("\nSe ha borrado correctamente");
-                        }
-                        else{
-                            console.log("\nError. No se ha podido borrar");
-                        }
+                        // if(adminServicio.borradoAbono(dni, pin)){
+                        //     console.log("\nSe ha borrado correctamente");
+                        // }
+                        // else{
+                        //     console.log("\nError. No se ha podido borrar");
+                        // }
+                        abonadoController.borrarAbono(dni, pin);
 
                         break;
                     case 0:
@@ -228,7 +235,8 @@ do {
                     op2 = parseInt(readline.question(adminController.menuAdmin()));
                     switch (op2) {
                         case 1:
-                            adminServicio.estadoParking();
+                            // adminServicio.estadoParking();
+                            adminController.estadoParking();
 
                             break;
                         case 2:
@@ -236,19 +244,20 @@ do {
                             fecha1 = moment(fecha);
                             fecha = readline.question("Introduce la segunda fecha y hora con el formato 'aaaa-mm-dd hh:mm': ");
                             fecha2 = moment(fecha);
-                            console.log(`\nFacturación entre ${fecha1.date()}/${fecha1.month()}/${fecha1.year()} y el ${fecha2.date()}/${fecha2.month()}/${fecha2.year()}: ${adminServicio.facturacion(fecha1,fecha2)} €`);
-
+                            // console.log(`\nFacturación entre ${fecha1.date()}/${fecha1.month()}/${fecha1.year()} y el ${fecha2.date()}/${fecha2.month()}/${fecha2.year()}: ${adminServicio.facturacion(fecha1,fecha2)} €`);
+                            console.log(`\nFacturación entre ${fecha1.date()}/${fecha1.month()}/${fecha1.year()} y el ${fecha2.date()}/${fecha2.month()}/${fecha2.year()}: ${adminController.facturacion(fecha1,fecha2)} €`);
 
                             break;
                         case 3:
-                            adminServicio.consultaAbonados();
+                            // adminServicio.consultaAbonados();
+                            adminController.consultaAbonados();
 
                             break;
                         
                         case 4:
                             let mes = readline.question("Introduce un mes en número: ");
                             console.log("\nAbonos que caducan en ese mes:")
-                            adminServicio.caducidadAbonosMes(mes);
+                            // adminServicio.caducidadAbonosMes(mes);
 
                             break;
                         case 5:
